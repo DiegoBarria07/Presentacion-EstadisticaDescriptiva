@@ -1,0 +1,282 @@
+/* ========================================================
+   VARIABLES DE LA PALETA MATEMÁTICA (MODO PIZARRA)
+   ======================================================== */
+:root {
+    --fondo-pizarra: #1a1a24;
+    --texto-principal: #eef2f5;
+    --texto-secundario: #b0b8c0;
+    --color-variable: #f1c40f; /* Amarillo tiza */
+    --color-funcion: #00d2ff; /* Cian neón */
+    --fuente-matematica: 'Courier New', Courier, monospace;
+    --fuente-texto: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* El body ocupa el 100% de la pantalla y oculta el scroll */
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--fondo-pizarra);
+    color: var(--texto-principal);
+    font-family: var(--fuente-texto);
+}
+
+/* Patrón de cuadrícula de cuaderno de matemáticas */
+body.matematica-theme {
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 35px 35px; /* Cuadrícula grande y limpia */
+}
+
+/* ========================================================
+   CONTENEDOR DE LA PRESENTACIÓN Y TRACK DE DIAPOSITIVAS
+   ======================================================== */
+.presentacion-contenedor {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.slides-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    /* Transición de Canva para cambiar de diapositiva */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 5rem 4rem 5rem;
+}
+
+/* ========================================================
+   LAYOUTS INTERNOS Y APROVECHAMIENTO DEL ESPACIO
+   ======================================================== */
+.slide-contenido {
+    width: 100%;
+    max-width: 1500px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.centro {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Diseño Dos Columnas Optimizado */
+.layout-optimizado {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Da más espacio visual al gráfico */
+    gap: 3rem;
+    height: 85vh; /* Ocupa el máximo alto posible */
+    align-items: center;
+}
+
+.slide-texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.slide-visual {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+/* ========================================================
+   TEXTOS GIGANTES Y TIPOGRAFÍA
+   ======================================================== */
+.titulo-gigante {
+    font-family: var(--fuente-matematica);
+    font-size: 5rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+}
+
+.subtitulo-grande {
+    font-size: 2.8rem;
+    color: var(--color-variable);
+    margin-bottom: 1.5rem;
+}
+
+.presentadores-grande {
+    font-size: 1.8rem;
+    color: var(--texto-secundario);
+}
+
+.decoracion-mat {
+    margin-top: 5rem;
+    font-family: var(--fuente-matematica);
+    font-size: 3rem;
+    color: rgba(255,255,255,0.07);
+}
+
+.slide-texto h2 {
+    font-family: var(--fuente-matematica);
+    font-size: 3rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid rgba(255,255,255,0.15);
+    padding-bottom: 0.5rem;
+}
+
+.variable-mat, .simbolo-mat {
+    color: var(--color-funcion);
+}
+
+.insight-texto, p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #d8e0e8;
+    line-height: 1.6;
+}
+
+.resalte {
+    color: #000;
+    background-color: var(--color-variable);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 800;
+}
+
+/* ========================================================
+   MARCOS PARA LOS GRÁFICOS (AJUSTE AUTOMÁTICO DE ALTURA)
+   ======================================================== */
+.marco-imagen {
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto; /* El marco abraza a la imagen sin importar sus proporciones */
+    max-height: 75vh; /* Límite para que no se salga de la pantalla */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
+.marco-imagen::before {
+    content: "[ Gráfico ]";
+    position: absolute;
+    font-family: var(--fuente-matematica);
+    color: rgba(255,255,255,0.15);
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+.marco-imagen img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción real */
+    max-height: 70vh;
+    object-fit: contain;
+    z-index: 2;
+    position: relative;
+    padding: 15px;
+    background-color: transparent;
+}
+
+/* EFECTO: Iluminación de tarjeta y leve elevación (sin hacer zoom a la imagen) */
+.efecto-suave:hover {
+    border-color: var(--color-funcion);
+    box-shadow: 0 15px 40px rgba(0, 210, 255, 0.25), inset 0 0 20px rgba(0, 210, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+/* ========================================================
+   BOTONES DE NAVEGACIÓN Y PAGINACIÓN
+   ======================================================== */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    border: 2px solid rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 2.5rem;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+}
+
+.nav-btn:hover {
+    background: var(--color-funcion);
+    color: #000;
+    border-color: var(--color-funcion);
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* Puntitos de abajo */
+.indicadores {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    z-index: 100;
+}
+
+.punto {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.punto:hover {
+    background-color: rgba(255,255,255,0.8);
+}
+
+.punto.activo {
+    background-color: var(--color-variable);
+    transform: scale(1.4);
+    box-shadow: 0 0 12px rgba(241, 196, 15, 0.6);
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (Laptops pequeñas / Proyectores 720p)
+   ======================================================== */
+@media (max-width: 1200px) {
+    .slide { padding: 2rem 4rem 3rem 4rem; }
+    .layout-optimizado { gap: 2rem; }
+    .titulo-gigante { font-size: 4rem; }
+    .slide-texto h2 { font-size: 2.4rem; }
+    .insight-texto, p { font-size: 1.25rem; }
+}
